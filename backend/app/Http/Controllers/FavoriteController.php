@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Requests\FavoriteRequest;
-use App\Service\FavoriteService;
+use App\Http\Requests\FavoriteRequest;
+use App\Services\FavoriteService;
 use Illuminate\Http\JsonResponse;
 use Exception;
 
@@ -20,19 +20,20 @@ class FavoriteController extends Controller
     {
         try {
             $favorites = $this->favoriteService->getAllFavorites();
-            return response()->json([$favorites]);
+            return response()->json($favorites);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Falha ao buscar favoritos'], 503);
+            return response()->json(['error' => 'Falha ao buscar favoritos'], 500);
         }
     }
 
     public function store(FavoriteRequest $request)
     {
         try {
-            $favorite =$this->favoriteService->addFavorite($request->validated());
+            $favorite = $this->favoriteService->addFavorite($request->validated());
             return response()->json($favorite, 201);
+            
         } catch (Exception $e) {
-            return response()->json(['error' => 'Falha ao adicionar filme aos favoritos'], 503);
+            return response()->json(['error' => 'Falha ao adicionar filme aos favoritos'], 500);
         }
     }
 
@@ -43,7 +44,7 @@ class FavoriteController extends Controller
             if(!$deleted) {
                 return response()->json(['error' => 'Filme não encontrado'], 404);
             }
-            return response()->json(['message' => 'Filme removido dos favoritos'], 204);
+            return response()->json(['message' => 'Filme removido dos favoritos'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => 'Falha ao remover filme dos favoritos'], 503);
         }
