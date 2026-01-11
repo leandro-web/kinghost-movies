@@ -86,7 +86,7 @@ onMounted(async () => {
     <div v-if="loading" class="flex justify-center items-center h-40">Carregando...</div>
 
     <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie">
+      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" :show-genres="true">
         <template #actions>
           <BaseButton
             @click="addToFavorites(movie)"

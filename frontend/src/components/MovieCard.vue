@@ -17,6 +17,10 @@ const posterUrl = computed(() =>
   props.movie.poster_path ? `https://image.tmdb.org/t/p/w500${props.movie.poster_path}` : null
 );
 
+const genreIds = computed(() => {
+  return props.movie.genres || props.movie.genre_ids || [];
+});
+
 const formattedDate = computed(() => {
   if (!props.movie.release_date && !props.movie.created_at) return "Data desconhecida";
   const date = props.movie.release_date || props.movie.created_at;
@@ -44,9 +48,9 @@ const formattedDate = computed(() => {
       <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ movie.title }}</h3>
       <p class="text-sm text-gray-600 mb-2">{{ formattedDate }}</p>
 
-      <div v-if="showGenres && movie.genres" class="flex flex-wrap gap-1 mb-3">
+      <div v-if="showGenres && genreIds.length" class="flex flex-wrap gap-1 mb-3">
         <span
-          v-for="name in getGenreNames(movie.genres).slice(0, 2)"
+          v-for="name in getGenreNames(genreIds).slice(0, 2)"
           :key="name"
           class="text-[10px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
           >{{ name }}
