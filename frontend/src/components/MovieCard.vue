@@ -56,6 +56,10 @@ const formattedDate = computed(() => {
       <div v-else>
         <span class="text-[10px] text-gray-500">Sem gêneros</span>
       </div>
+
+      <div class="mt-4">
+        <slot name="actions" />
+      </div>
     </div>
   </div>
 </template>

@@ -21,14 +21,14 @@ class MovieController extends Controller
         $query = $request->input('query');
 
         if(!$query) {
-            return response()->json(['result' => []]);
+            return response()->json(['results' => []]);
         }
 
         try {
             $data = $this->tmdbService->searchMovies($query);
             $data = $this->markfavorites($data);
 
-            return response()->json([$data]);
+            return response()->json($data);
         } catch (Exception $e) {
             return response()->json(['error' => 'Falha ao buscar filmes'], 503);
         }
@@ -39,7 +39,7 @@ class MovieController extends Controller
         try {
             $data = $this->tmdbService->getPopularMovies();
             $data = $this->markfavorites($data);
-            return response()->json([$data]);
+            return response()->json($data);
         } catch (Exception $e) {
             return response()->json(['error' => 'Falha ao buscar filmes'], 503);
         }
@@ -55,7 +55,7 @@ class MovieController extends Controller
         $existingFavorites = Favorite::whereIn('tmdb_id', $tmdbIds)->pluck('tmdb_id')->toArray();
 
         foreach($tmdbData['results'] as &$movie) {
-            $movie['is_favovorite'] = in_array($movie['id'], $existingFavorites);
+            $movie['is_favorite'] = in_array($movie['id'], $existingFavorites);
         }
         return $tmdbData;        
     }
