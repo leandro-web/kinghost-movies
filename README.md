@@ -2,7 +2,7 @@
 
 Aplicação web para busca e gerenciamento de filmes favoritos, integrando a API do TMDB com backend Laravel e frontend Vue.js.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Backend:** Laravel 10+, PHP 8.2, MySQL 8.0
 - **Frontend:** Vue.js 3 (Composition API), Vite, TailwindCSS
@@ -10,7 +10,7 @@ Aplicação web para busca e gerenciamento de filmes favoritos, integrando a API
 
 ---
 
-## 🔧 Pré-requisitos
+## Pré-requisitos
 
 Certifique-se de ter instalado em sua máquina:
 
@@ -19,7 +19,7 @@ Certifique-se de ter instalado em sua máquina:
 
 ---
 
-## 📥 Instalação e Execução
+## Instalação e Execução
 
 Siga os passos abaixo para rodar o projeto completo em ambiente de desenvolvimento.
 
@@ -27,10 +27,18 @@ Siga os passos abaixo para rodar o projeto completo em ambiente de desenvolvimen
 
 ```bash
 git clone <LINK_DO_SEU_REPOSITORIO_AQUI>
-cd teste-tecnico-filmes
+cd kinghost-movies
 ```
 
-### 2. Configuração de Ambiente (Backend)
+### 2. Configuração da API do TMDB
+
+Para que o sistema funcione, você precisará de uma chave de API.
+
+1. Crie uma conta gratuita no [The Movie Database (TMDB)](https://www.themoviedb.org/signup).
+2. Acesse [Configurações da API](https://www.themoviedb.org/settings/api).
+3. Gere uma **API Key**. Você usará essa chave na configuração do Backend.
+
+### 3. Configuração de Ambiente (Backend)
 
 Copie o arquivo de exemplo e configure as variáveis:
 
@@ -39,13 +47,13 @@ cd backend
 cp .env.example .env
 ```
 
-Edite o arquivo .env gerado e insira sua chave da API do TMDB que está em .env.example caso a mesma não tenha sido clonada:
+Edite o arquivo .env gerado e insira sua chave da API do TMDB.
 
 ```bash
 TMDB_API_KEY=sua_chave_api_tmdb_aqui
 ```
 
-### 3. Configuração de Ambiente (Frontend)
+### 4. Configuração de Ambiente (Frontend)
 
 Copie o arquivo de exemplo e configure as variáveis:
 
@@ -58,9 +66,9 @@ cp .env.example .env
 VITE_API_BASE_URL=http://localhost:8000/api
 ```
 
-### 4. Subindo os Containers (Docker)
+### 5. Subindo os Containers (Docker)
 
-Volte para a raiz do projeto e inicie os serviços:
+Rode o comando na raiz do projeto e inicie os serviços:
 
 ```bash
 cd ..
@@ -92,13 +100,13 @@ docker-compose exec frontend npm run dev
 
 Após finalizar os passos acima:
 
-Frontend (Aplicação): http://localhost:5173
+Frontend: http://localhost:5173
 
-Backend (API): http://localhost:8000
+Backend: http://localhost:8000
 
 ## Estrutura do Projeto e CRUD
 
-# Backend (Laravel)
+## Backend (Laravel)
 
 O CRUD de favoritos foi implementado seguindo o padrão REST.
 
@@ -110,11 +118,15 @@ Rotas: backend/routes/api.php
 
 Migration: backend/database/migrations/xxxx_create_favorites_table.php
 
-# Frontend (Vue.js)
+Service: backend/app/Services/FavoriteService.php
+
+Request: backend/app/Http/request/FavoriteRequest.php
+
+## Frontend (Vue.js)
 
 Views:
 
-frontend/src/views/HomeView.vue: Busca na API do TMDB e salva no Laravel.
+frontend/src/views/HomeView.vue: Por default busca 20 filmes populares alem de fazer busca na API do TMDB e salva no Laravel.
 
 frontend/src/views/FavoritesView.vue: Lista favoritos do Laravel, filtra por gênero e remove.
 
@@ -122,19 +134,11 @@ Services: frontend/src/services/api.js (Configuração do Axios).
 
 ## Testes Automatizados
 
-Volte para a raiz do projeto e inicie os serviços:
+Na raiz do projeto rode o comando:
 
 ```bash
 cd ..
 docker-compose exec backend php artisan test
 ```
-
-## Configuração da API do TMDB
-
-Para que o sistema funcione, você precisará de uma chave de API (v3).
-
-1. Crie uma conta gratuita no [The Movie Database (TMDB)](https://www.themoviedb.org/signup).
-2. Acesse [Configurações da API](https://www.themoviedb.org/settings/api).
-3. Gere uma **API Key**. Você usará essa chave na configuração do Backend.
 
 ---
