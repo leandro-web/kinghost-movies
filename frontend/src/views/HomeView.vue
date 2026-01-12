@@ -49,6 +49,7 @@ const addToFavorites = async (movie) => {
       release_date: movie.release_date,
       genres: movie.genre_ids,
     });
+    movie.is_favorite = true;
     alert("Filme adicionado aos favoritos com sucesso!");
   } catch (error) {
     console.error(error);
